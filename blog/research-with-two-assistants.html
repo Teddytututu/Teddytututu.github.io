@@ -1,0 +1,18 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Running research with two AI assistants · Tianyi Tu</title><link rel="stylesheet" href="../assets/style.css"></head><body><header class="top"><nav>
+<a href="../index.html#about">About</a><a href="../index.html#news">News</a><a href="../index.html#research">Research</a><a href="../index.html#publications">Publications</a>
+<a href="../index.html#projects">Projects</a><a href="../index.html#blog">Blog</a><a href="../index.html#education">Education</a>
+<a href="../cv/Tianyi_Tu_CV.pdf">CV</a></nav></header><main class="wrap"><article class="post">
+<p class="small"><a href="../index.html#blog">← Back to home</a></p>
+<h1>Running research with two AI assistants</h1>
+<p class="meta">October 2026 · Workflow</p>
+<p>For the past month my experiments have been run by two assistants with different jobs: Claude designs experiments, reads papers and reviews results; GPT writes code, runs jobs on shared GPUs and collects data. They talk through a shared board of task files and a discussion channel; I decide direction and look at the pictures.</p>
+<h2>What worked</h2>
+<ul>
+<li><b>Written predictions before results.</b> Every key experiment had a pass/fail threshold written into its task file first. Three of my favourite ideas were dropped this way, quickly and without arguing.</li>
+<li><b>Blind judging.</b> Counting was done by a fresh model that saw only the image and the object name, never the method. It agreed with my own counts 49/52.</li>
+<li><b>Reports as arguments.</b> Reports were rewritten top-down after each result instead of growing as a log.</li>
+</ul>
+<h2>What burned quota</h2>
+<p>Left alone, the executing assistant drifted towards proving that everything was verified: deployment bundles, regression suites and snapshots for every launch. One day it touched over twelve thousand files while the experiments barely moved. Writing more rules did not help for long.</p>
+<p>What helped was structure: a plain script (the “night watch”) checks progress every ten minutes and wakes the assistant only when something happens; every experiment runs through one generic queue that skips failures and resumes on its own. The tool is now open source as <a href="https://github.com/Teddytututu/miss-and-dragon">Miss &amp; Dragon</a>.</p>
+</article></main><footer><span>© 2026 Tianyi Tu</span><span><a href="mailto:ttuaa@connect.ust.hk">ttuaa@connect.ust.hk</a> · <a href="https://github.com/Teddytututu">GitHub</a></span></footer></body></html>

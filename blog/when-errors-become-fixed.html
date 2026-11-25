@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>When diffusion models make up their mind · Tianyi Tu</title><link rel="stylesheet" href="../assets/style.css"></head><body><header class="top"><nav>
+<a href="../index.html#about">About</a><a href="../index.html#news">News</a><a href="../index.html#research">Research</a><a href="../index.html#publications">Publications</a>
+<a href="../index.html#projects">Projects</a><a href="../index.html#blog">Blog</a><a href="../index.html#education">Education</a>
+<a href="../cv/Tianyi_Tu_CV.pdf">CV</a></nav></header><main class="wrap"><article class="post">
+<p class="small"><a href="../index.html#blog">← Back to home</a></p>
+<h1>A month of chasing when diffusion models make up their mind</h1>
+<p class="meta">October 2026 · Diffusion models</p>
+<p>Text-to-image models often get the number of objects wrong: ask for three apples and you get two. The usual fix is to look at the finished image and draw again. I spent a month asking whether the mistake can be caught during generation instead.</p>
+
+<h2>The mistake is made before you can see it</h2>
+<p>Watching the one-step previews along a generation, the layout of a scene appears while the image is still a blur. Interventions late in sampling change details but rarely the structure. That made the timing of a mistake, not just its existence, the thing I wanted to understand.</p>
+<figure><img src="../assets/img/chair_strip.jpg" alt="Previews of four chairs separating from a blur"><figcaption>Previews along a 40-step generation.</figcaption></figure>
+
+<h2>Looking closely helps, and so do negative results</h2>
+<p>Stepping through generations frame by frame, I noticed objects seem to split out of blobs and the model sometimes seems to hesitate between two arrangements. Early previews are an average over the outcomes the model is still considering, so hesitation appears as overlapping ghosts. Several of my ideas for fixing errors locally did not survive the tests I wrote down in advance; each failure narrowed down what kind of fix can work.</p>
+<figure><img src="../assets/img/phone_strip.jpg" alt="Previews where two arrangements of a phone overlap"><figcaption>Two arrangements overlap in the early previews; one leaves a trace in the final image.</figcaption></figure>
+
+<h2>What I took away</h2>
+<ul>
+<li>Write the pass/fail criterion before running the experiment. It makes dropping a favourite idea quick.</li>
+<li>Read widely before and after each turn. Related work turned up more than once and changed how I framed the question.</li>
+<li>Look at the pictures yourself. Several hypotheses came from staring at previews, not from numbers.</li>
+</ul>
+<p class="muted small">Comments are welcome by email.</p>
+</article></main><footer><span>© 2026 Tianyi Tu</span><span><a href="mailto:ttuaa@connect.ust.hk">ttuaa@connect.ust.hk</a> · <a href="https://github.com/Teddytututu">GitHub</a></span></footer></body></html>
