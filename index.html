@@ -1,62 +1,51 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tianyi Tu</title><link rel="stylesheet" href="assets/style.css"></head><body><header class="top"><nav>
-<a href="index.html#about">About</a><a href="index.html#news">News</a><a href="index.html#research">Research</a><a href="index.html#publications">Publications</a>
-<a href="index.html#projects">Projects</a><a href="index.html#blog">Blog</a><a href="index.html#education">Education</a>
-<a href="cv/Tianyi_Tu_CV.pdf">CV</a></nav></header><main class="wrap">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tianyi Tu</title><link rel="icon" type="image/png" href="assets/img/avatar.png"><link rel="stylesheet" href="assets/style.css"></head><body><main class="page">
 <section id="about" style="margin-top:0;padding-top:0">
-<div class="hero"><div>
-<h1>Tianyi Tu <span class="muted" style="font-size:.6em;font-weight:400">涂天毅</span></h1>
+<div class="bio"><div class="bio-text">
+<h1 class="name">Tianyi Tu <span class="muted" style="font-size:.6em;font-weight:400">涂天毅</span></h1>
 <p class="muted">BEng in Computer Science, Hong Kong University of Science and Technology (Class of 2028)</p>
-<div class="links"><a href="cv/Tianyi_Tu_CV.pdf">CV</a><a href="mailto:ttuaa@connect.ust.hk">Email</a><a href="https://github.com/Teddytututu">GitHub</a></div>
+<div class="bio-links"><a href="cv/Tianyi_Tu_CV.pdf">CV</a><a href="mailto:ttuaa@connect.ust.hk">Email</a><a href="https://github.com/Teddytututu">GitHub</a></div>
 <p>I am a third-year undergraduate at HKUST. I study <b>when generative models lock in their mistakes</b>: at which sampling step an object count or a spatial layout becomes fixed, when such errors first become readable from previews, and how to spend inference-time compute accordingly. I also build AI tools I use every day.</p>
 <p>I work with <b>Yuxiao Ye</b> at HKUST on error timing in image and video generation, and with <b>Chuxue Cao</b> on rule-grounded sandboxes for financial agents. Before that, I did a UROP on mental-state reasoning for LLMs with <b>Prof. Yangqiu Song</b>.</p>
 <p class="muted small">Open to internships, full-time from Dec 21, 2026 to Apr 2027.</p>
-</div><div class="photo">TT</div></div>
+</div><div class="bio-photo"><img alt="Mashiro Shiina from The Pet Girl of Sakurasou" height="194" src="assets/img/avatar.png" width="194"/></div></div>
 </section>
-
-<section id="news"><h2>News</h2>
+<section id="news"><div class="section-header"><h2>News</h2></div>
 <ul class="news">
 <li><span class="d">Nov 2026</span><span>Research proposal <i>Lock-in Before Readability: Early Screening and Error Attribution for Compositional Text-to-Image Generation</i> shared with collaborators.</span></li>
 <li><span class="d">Nov 2026</span><span><i>D-LCSP</i> (co-first author) received a major revision at <i>Applied Thermal Engineering</i>; <i>Agentic Internet of Things</i> (first author, survey) under revision at <i>Cybernetics and Systems</i>.</span></li>
 <li><span class="d">Sep 2026</span><span>Started work on rule-grounded sandbox synthesis for financial agents.</span></li>
 <li><span class="d">Jul 2026</span><span><i>Physical Rule-Guided Chain-of-Thought Reasoning for Low-Overkill Industrial Anomaly Detection</i> (first author) accepted at IEEE AIoTC 2026.</span></li>
 </ul></section>
-
-<section id="research"><h2>Research</h2>
-
-<div class="item">
+<section id="research"><div class="section-header"><h2>Research</h2></div>
+<div class="paper"><figure class="paper-media"><img alt="Step-by-step previews of an image with four chairs separating from a blur" src="assets/img/chair_strip.jpg"/><figcaption>Previews along a 40-step generation: the layout is decided long before it can be read.</figcaption></figure><div class="paper-info">
 <h3>Lock-in before readability: error timing and inference-time compute in text-to-image diffusion</h3>
 <div class="meta"><span class="tag on">ongoing</span>with Yuxiao Ye · Qwen-Image, SD2.1 · manuscript in preparation</div>
-<figure><img src="assets/img/chair_strip.jpg" alt="Step-by-step previews of an image with four chairs separating from a blur"><figcaption>Previews along a 40-step generation: the layout is decided long before it can be read.</figcaption></figure>
-<p>Swapping the prompt mid-sampling shows that counting and spatial errors lock in within the <b>first 5% of sampling steps</b>, before previews are readable, which is why rolling back to repair them mostly amounts to redrawing the noise. Building on this, I screen out failing samples at the first readable preview (<b>AUC 0.90</b>), and separate the effects of seed, phrasing and model prior: choosing the phrasing before the seed raised accuracy on a pilot set of new spatial prompts from <b>13.8% to 41.3%</b>.</p>
-</div>
 
-<div class="item">
+<p>Swapping the prompt mid-sampling shows that counting and spatial errors lock in within the <b>first 5% of sampling steps</b>, before previews are readable, which is why rolling back to repair them mostly amounts to redrawing the noise. Building on this, I screen out failing samples at the first readable preview (<b>AUC 0.90</b>), and separate the effects of seed, phrasing and model prior: choosing the phrasing before the seed raised accuracy on a pilot set of new spatial prompts from <b>13.8% to 41.3%</b>.</p>
+</div></div>
+<div class="paper text-only"><div class="paper-info">
 <h3>Video generation evaluation and verifier error attribution</h3>
 <div class="meta"><span class="tag">Nov 2026</span>CogVideoX · VBench2 · VQAScore · Qwen3-VL</div>
 <p>Best-of-N selection with VQAScore, cross-checked by VBench2, showed that failed generations bias some official benchmark scores. A Qwen3-VL video verifier I built raised false alarms mostly on normal camera motion such as pans and zooms.</p>
-</div>
-
-<div class="item">
+</div></div>
+<div class="paper text-only"><div class="paper-info">
 <h3>Reproducing and auditing DraCo (draft → self-check → refine)</h3>
 <div class="meta"><span class="tag">Oct 2026</span>GenEval · GenEval++</div>
 <p>Rebuilt the draft–verify–refine pipeline from the paper and released weights, compared self-check, regeneration and local rollback, and cross-checked results with two independent judges.</p>
-</div>
-
-<div class="item">
+</div></div>
+<div class="paper text-only"><div class="paper-info">
 <h3>Rule-grounded sandbox synthesis for financial agents</h3>
 <div class="meta"><span class="tag on">ongoing</span>with Chuxue Cao · HKUST</div>
 <p>Synthesizing executable sandboxes from real business rules and tool-call trajectories for agent RL and evaluation, by replaying public business-process logs into environments with tools, rules and rule-flip test pairs.</p>
-</div>
-
-<div class="item">
+</div></div>
+<div class="paper text-only"><div class="paper-info">
 <h3>Mental-state reasoning for LLMs</h3>
 <div class="meta"><span class="tag">2025</span>UROP with Prof. Yangqiu Song, HKUST</div>
 <p>Compared Theory-of-Mind benchmarks (ATOM, FANToM, NegotiationToM) and the CCoToM method on diagnostic granularity and realism, and annotated BDI data.</p>
-</div>
+</div></div>
 </section>
-
-<section id="publications"><h2>Publications</h2>
-<div class="item">
+<section id="publications"><div class="section-header"><h2>Publications</h2></div>
+<div class="paper text-only"><div class="paper-info">
 <p><b>First author</b></p>
 <p><b>Tianyi Tu</b>, Qianshuo Yu, Fange Wen, Qingxiang Zhang, Yaohua Deng, Dagang Li. Physical Rule-Guided Chain-of-Thought Reasoning for Low-Overkill Industrial Anomaly Detection. <i>IEEE AIoTC</i>, 2026.</p>
 <p><b>Tianyi Tu</b>, Qianqi Zhang, Zeling Xu, Yuntao Zou, Weiwei Jiang, Junxin Chen, Wei William Wang. Agentic Internet of Things: From Connected Systems to Trustworthy Physical Agents. <i>Cybernetics and Systems</i>, under revision (survey).</p>
@@ -67,26 +56,23 @@
 <p>Information-Optimal Active Laser Altimetry for Planetary Digital Elevation Model Refinement. <i>Expert Systems with Applications</i>.</p>
 <p>A Dual-Timescale Hierarchical Reinforcement Learning Framework for Battery Energy Management in Lunar Base Microgrids. <i>Electric Power Systems Research</i>.</p>
 <p>Enhancing Suicide Risk Assessment in University Students Using Large Language Models: A Social Media Analysis Approach. <i>Computer Methods and Programs in Biomedicine</i>.</p>
-</div>
+</div></div>
 </section>
-
-<section id="projects"><h2>Projects</h2>
-<div class="item"><h3><a href="https://github.com/Teddytututu/miss-and-dragon">Miss &amp; Dragon</a>: a multi-agent research workspace</h3><div class="meta"><span class="tag on">open source</span>core board</div>
-<p>Run your research like a galgame: a local board where Claude, GPT and Gemini claim task cards, deliver and cross-review each other, woken by events and a schedule. Human approval and veto gates sit at key steps, and recurring workflow failures become automated checks.</p></div>
-<div class="item"><h3><a href="https://github.com/Teddytututu/ai-bead-pattern">AI Bead Pattern</a>: human-aligned bead pattern generation</h3><div class="meta"><span class="tag on">open source</span>with Jing Chen</div>
-<p>Encodes how people draw fuse-bead art (settle the structure, merge stray colour patches, separate light and shade, trace outlines) as a deterministic generator that matches physical bead palettes by CIEDE2000. Qwen image editing and human review produced 1,162 teacher images in a human cartoon style for later student distillation; GroundingDINO and SAM locate subjects and facial parts to protect key structure.</p></div>
+<section id="projects"><div class="section-header"><h2>Projects</h2></div>
+<div class="paper text-only"><div class="paper-info"><h3><a href="https://github.com/Teddytututu/miss-and-dragon">Miss &amp; Dragon</a>: a multi-agent research workspace</h3><div class="meta"><span class="tag on">open source</span>core board</div>
+<p>Run your research like a galgame: a local board where Claude, GPT and Gemini claim task cards, deliver and cross-review each other, woken by events and a schedule. Human approval and veto gates sit at key steps, and recurring workflow failures become automated checks.</p></div></div>
+<div class="paper text-only"><div class="paper-info"><h3><a href="https://github.com/Teddytututu/ai-bead-pattern">AI Bead Pattern</a>: human-aligned bead pattern generation</h3><div class="meta"><span class="tag on">open source</span>with Jing Chen</div>
+<p>Encodes how people draw fuse-bead art (settle the structure, merge stray colour patches, separate light and shade, trace outlines) as a deterministic generator that matches physical bead palettes by CIEDE2000. Qwen image editing and human review produced 1,162 teacher images in a human cartoon style for later student distillation; GroundingDINO and SAM locate subjects and facial parts to protect key structure.</p></div></div>
 </section>
-
-<section id="blog"><h2>Blog</h2>
+<section id="blog"><div class="section-header"><h2>Blog</h2></div>
 <div class="cards">
-<a class="card" href="blog/when-errors-become-fixed.html" style="color:inherit;text-decoration:none"><div class="thumb" style="background-image:url(assets/img/phone_strip.jpg)"></div>
-<div class="body"><span class="muted small">Oct 2026 · diffusion models</span><b>A month of chasing when diffusion models make up their mind</b><span class="small muted">How the idea changed four times, and what the negative results taught me.</span><span class="more">Read post →</span></div></a>
-<a class="card" href="blog/research-with-two-assistants.html" style="color:inherit;text-decoration:none"><div class="thumb" style="background:linear-gradient(135deg,#e8f0fd,#f6eefc)"></div>
-<div class="body"><span class="muted small">Oct 2026 · workflow</span><b>Running research with two AI assistants</b><span class="small muted">One designs and reviews, one executes; what worked and what burned quota.</span><span class="more">Read post →</span></div></a>
+<a class="paper blog-link" href="blog/when-errors-become-fixed.html"><div class="paper-media"><img alt="Generation previews showing two overlapping phone arrangements" src="assets/img/phone_strip.jpg"/></div>
+<div class="paper-info blog-info"><span class="muted small">Oct 2026 · diffusion models</span><b>A month of chasing when diffusion models make up their mind</b><span class="small muted">How the idea changed four times, and what the negative results taught me.</span><span class="more">Read post →</span></div></a>
+<a class="paper blog-link text-only" href="blog/research-with-two-assistants.html">
+<div class="paper-info blog-info"><span class="muted small">Oct 2026 · workflow</span><b>Running research with two AI assistants</b><span class="small muted">One designs and reviews, one executes; what worked and what burned quota.</span><span class="more">Read post →</span></div></a>
 </div></section>
-
-<section id="education"><h2>Education</h2>
-<div class="edu"><span class="d">2024 – 2028 (expected)</span><div><b>Hong Kong University of Science and Technology</b><br>BEng in Computer Science (English-medium)<br><span class="muted small">Coursework: machine learning, image processing, reinforcement learning, AI reasoning and decision making, algorithms, probability.</span><br><span class="muted small">Nominated for exchange at Technical University of Munich (Informatics), Summer 2027.</span></div></div>
+<section id="education"><div class="section-header"><h2>Education</h2></div>
+<div class="edu"><span class="d">2024 – 2028 (expected)</span><div><b>Hong Kong University of Science and Technology</b><br/>BEng in Computer Science (English-medium)<br/><span class="muted small">Coursework: machine learning, image processing, reinforcement learning, AI reasoning and decision making, algorithms, probability.</span><br/><span class="muted small">Nominated for exchange at Technical University of Munich (Informatics), Summer 2027.</span></div></div>
 <div class="edu"><span class="d">2020 – 2023</span><div><b>Wuchang Experimental High School</b>, Wuhan</div></div>
 </section>
-</main><footer><span>© 2026 Tianyi Tu</span><span><a href="mailto:ttuaa@connect.ust.hk">ttuaa@connect.ust.hk</a> · <a href="https://github.com/Teddytututu">GitHub</a></span></footer></body></html>
+<footer class="site-footer"><p>© 2026 Tianyi Tu · <a href="mailto:ttuaa@connect.ust.hk">ttuaa@connect.ust.hk</a> · <a href="https://github.com/Teddytututu">GitHub</a></p><p>Template by <a href="https://jonbarron.info/">Jon Barron</a></p></footer></main></body></html>

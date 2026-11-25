@@ -1,41 +1,458 @@
-:root{--ink:#1c2430;--muted:#5d6876;--line:#e3e7ec;--accent:#2f5bb7;--soft:#f5f7fa;--paper:#fff}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter","Segoe UI","Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;font-size:16px;line-height:1.7}
-a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-.top{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
-.top nav{max-width:860px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;gap:4px 20px;font-size:14.5px}
-.top nav a{color:var(--muted)}.top nav a:hover{color:var(--ink);text-decoration:none}
-.wrap{max-width:860px;margin:0 auto;padding:36px 20px 60px}
-section{padding-top:18px;margin-top:26px}
-h1{font-size:34px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
-h2{font-size:21px;margin:0 0 14px;padding-bottom:6px;border-bottom:1px solid var(--line)}
-h3{font-size:17px;margin:0 0 4px;line-height:1.4}
-p{margin:0 0 10px}
-.muted{color:var(--muted)}.small{font-size:14px}
-.hero{display:grid;grid-template-columns:1fr 168px;gap:28px;align-items:start}
-.photo{width:168px;height:168px;border-radius:50%;background:linear-gradient(135deg,#dfe8f7,#eef2f8);display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:700;color:#7d93bb;border:1px solid var(--line);overflow:hidden}
-.photo img{width:100%;height:100%;object-fit:cover}
-.links{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0 14px;font-size:15px}
-.news{list-style:none;margin:0;padding:0}.news li{display:grid;grid-template-columns:92px 1fr;gap:12px;padding:5px 0}
-.news .d{color:var(--muted);font-variant-numeric:tabular-nums;font-size:14.5px}
-.item{padding:18px 0;border-bottom:1px solid var(--line)}.item:last-child{border-bottom:0}
-.item .meta{font-size:14px;color:var(--muted);margin-bottom:8px}
-.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;background:var(--soft);color:var(--muted);margin-right:6px;border:1px solid var(--line)}
-.tag.on{background:#e8f0fd;color:var(--accent);border-color:#cfdcf5}
-.break{display:grid;grid-template-columns:72px 1fr;gap:4px 12px;margin:8px 0;font-size:15px}
-.break dt{font-weight:700;color:var(--accent);font-size:13.5px;padding-top:2px}.break dd{margin:0}
-figure{margin:12px 0}figure img,figure svg{width:100%;height:auto;border-radius:8px;display:block}
-figcaption{font-size:13.5px;color:var(--muted);margin-top:4px}
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.card{border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;background:#fff}
-.card .thumb{height:120px;background:var(--soft) center/cover no-repeat}
-.card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
-.card .body .more{margin-top:auto;font-size:14px}
-.edu{display:grid;grid-template-columns:150px 1fr;gap:4px 16px;padding:8px 0}
-.edu .d{color:var(--muted);font-size:14.5px}
-footer{max-width:860px;margin:0 auto;padding:20px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-math[display=block]{margin:6px 0 8px;font-size:1.08em}
-.post h1{font-size:30px}.post .meta{color:var(--muted);font-size:14.5px;margin-bottom:20px}
-.post h2{border-bottom:0;margin-top:30px}
-@media(max-width:680px){.hero{grid-template-columns:1fr}.photo{width:120px;height:120px;font-size:32px;order:-1}.cards{grid-template-columns:1fr}.news li{grid-template-columns:76px 1fr}.edu{grid-template-columns:1fr}.break{grid-template-columns:1fr}}
+/* ==========================================================================
+   Site-Wide Fonts & Design Policy (shared across homepage, papers, and demos)
+   --------------------------------------------------------------------------
+   Fonts (single source of truth — loaded lazily by unicode-range & usage):
+     --font-sans  Lato (400/700 normal & italic, v25 woff2)
+     --font-mono  Source Code Pro (400–700 variable, v32 woff2)
+
+   Colors:
+     --bg            #ffffff  Page, button, and popover background.
+     --bg-code       #f7f7f5  Code listing, inline code & control surface.
+     --border        #e4e4e0  Hairline dividers & borders (~black!15).
+     --text          #000000  All primary content & paper metadata (prose,
+                              headings, authors, affiliations, venues, emails,
+                              captions, tables, references, code body/keywords).
+     --text-muted    #555555  Chrome ONLY: nav/link separators (/), footers,
+                              sidebar TOC, eq numbers, hover # anchors, Copy
+                              buttons, and code comments. Never use for main
+                              content or paper metadata.
+     --accent        #1772d0  Clickable links & active navigation ONLY. Never
+                              use for non-clickable elements or code keywords.
+     --accent-hover  #f09228  Hover/focus state for links & interactive chrome.
+     --highlight-bg  #ffffd0  Highlighted paper rows & :target jump highlights.
+     (Homepage-only accents: award badges #d40000 / #c64848, Miscellanea boxes.)
+
+   Typography:
+     Homepage (index.html): 32px title, 22px h2, 14px body (normal ~1.2 leading),
+                            13px footer.
+     Papers (paper.css):    32px title, 22px h2, 18px h3/abstract, 15px regular
+                            text (prose, authors, emails, affiliations, venue,
+                            top nav, TOC, eq numbers; 14px on mobile <= 640px),
+                            13px ONLY for LaTeX-\small equivalents (fig/table
+                            captions, tables, bibliography, code, algorithms,
+                            footnotes) and small UI chrome (footer, popups,
+                            Copy buttons). KaTeX math scaled to 1.14em.
+   ========================================================================== */
+
+/* Lato — latin-ext italic 400 */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  font-display: block;
+  src: url(https://fonts.gstatic.com/s/lato/v25/S6u8w4BMUTPHjxsAUi-qNiXg7eU0.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Lato — latin italic 400 */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  font-display: block;
+  src: url(https://fonts.gstatic.com/s/lato/v25/S6u8w4BMUTPHjxsAXC-qNiXg7Q.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Lato — latin-ext italic 700 */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  font-display: block;
+  src: url(https://fonts.gstatic.com/s/lato/v25/S6u_w4BMUTPHjxsI5wq_FQftx9897sxZ.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Lato — latin italic 700 */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  font-display: block;
+  src: url(https://fonts.gstatic.com/s/lato/v25/S6u_w4BMUTPHjxsI5wq_Gwftx9897g.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Lato — latin-ext normal 400 */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url(https://fonts.gstatic.com/s/lato/v25/S6uyw4BMUTPHjxAwXiWtFCfQ7A.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Lato — latin normal 400 */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url(https://fonts.gstatic.com/s/lato/v25/S6uyw4BMUTPHjx4wXiWtFCc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Lato — latin-ext normal 700 */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url(https://fonts.gstatic.com/s/lato/v25/S6u9w4BMUTPHh6UVSwaPGQ3q5d0N7w.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Lato — latin normal 700 */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url(https://fonts.gstatic.com/s/lato/v25/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Source Code Pro — greek 400–700 (variable) */
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: block;
+  src: url(https://fonts.gstatic.com/s/sourcecodepro/v32/HI_SiYsKILxRpg3hIP6sJ7fM7PqlPuvWnsUnxlC9.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* Source Code Pro — latin-ext 400–700 (variable) */
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: block;
+  src: url(https://fonts.gstatic.com/s/sourcecodepro/v32/HI_SiYsKILxRpg3hIP6sJ7fM7PqlM-vWnsUnxlC9.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Source Code Pro — latin 400–700 (variable) */
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: block;
+  src: url(https://fonts.gstatic.com/s/sourcecodepro/v32/HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevWnsUnxg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --bg: #ffffff;
+  --bg-code: #f7f7f5;
+  --border: #e4e4e0;
+  --text: #000000;
+  --text-muted: #555555;
+  --accent: #1F5A4E;
+  --accent-hover: #f09228;
+  --highlight-bg: #ffffd0;
+  --font-sans: 'Lato', Helvetica, Arial, sans-serif;
+  --font-mono: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:focus,
+a:hover {
+  color: var(--accent-hover);
+  text-decoration: none;
+}
+
+h2 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.page {
+  width: 100%;
+  max-width: 816px;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+.bio {
+  display: flex;
+  align-items: center;
+}
+
+.bio-text {
+  width: 63%;
+  padding: 2.5%;
+}
+
+.bio-photo {
+  width: 37%;
+  padding: 2.5%;
+}
+
+.bio-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.name {
+  padding-top: 20px;
+  margin: 0;
+  font-weight: 400;
+  font-size: 32px;
+  text-align: center;
+}
+
+.bio-links {
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.section-header {
+  padding: 16px;
+}
+
+.highlight {
+  background-color: var(--highlight-bg);
+}
+
+.papers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.paper,
+.misc-row {
+  display: grid;
+  grid-template-columns: 192px minmax(0, 1fr);
+  align-items: center;
+}
+
+.paper.highlighted {
+  background-color: var(--highlight-bg);
+}
+
+.paper-media,
+.misc-badge {
+  padding: 16px;
+}
+
+.misc-badge {
+  text-align: center;
+}
+
+.paper-info,
+.misc-links {
+  padding: 8px;
+}
+
+.papertitle {
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.paper-links {
+  color: var(--text-muted);
+}
+
+.paper-authors {
+  text-wrap: balance;
+}
+
+.paper-authors a,
+.paper-authors strong,
+.paper-authors .author {
+  white-space: nowrap;
+}
+
+.award {
+  color: #d40000;
+}
+
+.award-highlight {
+  color: #c64848;
+}
+
+.paper-desc {
+  margin: 14px 0 0;
+}
+
+.one {
+  width: 160px;
+  height: 160px;
+  position: relative;
+}
+
+.one-short,
+.one-short .two {
+  height: 120px;
+}
+
+.two {
+  width: 160px;
+  height: 160px;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.one img,
+.paper-media > img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.one video {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (hover: hover) {
+  .paper:hover > .paper-media > .one > .two {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.paper.hover-active > .paper-media > .one > .two {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.colored-box {
+  color: var(--text);
+  padding: 20px;
+  display: inline-block;
+  border-radius: 10px;
+}
+
+.site-footer {
+  text-align: right;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 18px;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 0;
+  }
+
+  .bio {
+    flex-direction: column-reverse;
+  }
+
+  .bio-text {
+    width: 100%;
+    padding: 8px 16px;
+  }
+
+  .bio-photo {
+    width: 100%;
+    padding: 20px 16px 0;
+    text-align: center;
+  }
+
+  .bio-photo img {
+    width: 148px;
+    margin: 0 auto;
+  }
+
+  .name {
+    padding-top: 8px;
+    font-size: 28px;
+  }
+
+  .paper,
+  .misc-row {
+    grid-template-columns: 124px minmax(0, 1fr);
+  }
+
+  .paper-media,
+  .misc-badge {
+    padding: 12px 8px 12px 12px;
+  }
+
+  .paper-info,
+  .misc-links {
+    padding: 10px 12px 10px 6px;
+  }
+
+  .one,
+  .two {
+    width: 104px;
+    height: 104px;
+  }
+
+  .one-short,
+  .one-short .two {
+    height: 78px;
+  }
+
+  .colored-box {
+    padding: 12px 8px;
+    width: 104px;
+  }
+
+  .colored-box h2 {
+    font-size: 15px;
+  }
+
+  .site-footer {
+    padding: 0 16px;
+  }
+}
+
+/* Content adapters for Tianyi Tu's canonical homepage and blog articles. */
+.bio-links a + a::before { content: ' / '; color: var(--text-muted); padding: 0 7px; }
+h3 { font-size: 14px; margin: 0 0 6px; }
+.paper { margin-bottom: 10px; }
+.paper.text-only { grid-template-columns: minmax(0, 1fr); }
+.paper.text-only .paper-info { padding: 8px 16px; }
+.paper figure { margin: 0; }
+figcaption { margin-top: 6px; font-size: 12px; }
+.meta { margin: 6px 0; }
+.tag { margin-right: 8px; font-style: italic; }
+.news { list-style: none; padding: 0 16px; margin: 0 0 12px; }
+.news li { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 12px; margin: 0 0 10px; }
+.edu { display: grid; grid-template-columns: 192px minmax(0, 1fr); padding: 8px 16px; margin-bottom: 8px; }
+.blog-link { color: var(--text); }
+.blog-info > * { display: block; margin: 5px 0; }
+.blog-info b, .blog-info .more { color: var(--accent); }
+.post { padding: 16px; }
+.post h1 { font-size: 32px; font-weight: 400; }
+.post h2 { margin-top: 28px; }
+.post p, .post li { line-height: 1.5; }
+.post li { margin: 8px 0; }
+.post figure { margin: 22px 0; }
+.post img { display: block; max-width: 100%; height: auto; }
+@media (max-width: 640px) {
+  .edu { grid-template-columns: 112px minmax(0, 1fr); gap: 8px; }
+  .post h1 { font-size: 28px; }
+}
