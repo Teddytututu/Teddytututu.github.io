@@ -456,3 +456,8 @@ figcaption { margin-top: 6px; font-size: 12px; }
   .edu { grid-template-columns: 112px minmax(0, 1fr); gap: 8px; }
   .post h1 { font-size: 28px; }
 }
+/* Project thumbnails: same 160px media column as research rows; links row like the template's paper links. */
+.paper-media .one img { width: 100%; height: 100%; object-fit: contain; border-radius: 4px; }
+#projects .paper-media > img { width: 160px; max-width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; }
+#projects .paper-links { margin: 2px 0 6px; }
+#projects .paper p { margin: 6px 0 0; }
